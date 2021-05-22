@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
+import { useLoaded } from '../../hooks/useLoaded';
 import { Switch } from '../atoms/button/darkMode';
 import ArrowIcon from '../../icons/arrow_back.svg';
 import ArrowWhiteIcon from '../../icons/arrow_back_white.svg';
@@ -10,6 +11,7 @@ type Props = {
 
 export const Header: React.VFC<Props> = ({ canGoBack }) => {
   const { theme } = useTheme();
+  const loaded = useLoaded();
 
   return (
     <header className="container mx-auto pt-5 px-4 text-gray-600 body-font">
@@ -18,7 +20,7 @@ export const Header: React.VFC<Props> = ({ canGoBack }) => {
           canGoBack ? 'justify-between' : 'justify-end'
         }`}
       >
-        {canGoBack && (
+        {loaded && canGoBack && (
           <Link href={`/`}>
             <div>{theme === 'light' ? <ArrowIcon /> : <ArrowWhiteIcon />}</div>
           </Link>
