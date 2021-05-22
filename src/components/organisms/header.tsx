@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
-import { Switch } from '../atoms/Button/darkMode';
+import { Switch } from '../atoms/button/darkMode';
 
 type Props = {
   canGoBack?: boolean;
