@@ -6,6 +6,7 @@ import { getDatabaseData, getPageData } from '../src/scripts/notion';
 import { Header } from '../src/components/organisms/header';
 import { Footer } from '../src/components/organisms/footer';
 import { SubscribeForm } from '../src/components/molecules/form/subscribe';
+import { Category } from '../src/components/atoms/category';
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
   return {
@@ -52,34 +53,11 @@ const Page: NextPage<Props> = ({ siteTitle, postList }) => {
                       <div className="flex flex-row justify-between items-center">
                         <div>
                           {item.categories.map((category, index) => (
-                            <span
+                            <Category
                               key={category.id}
-                              className={`${
-                                category.color === 'orange'
-                                  ? 'bg-yellow-500'
-                                  : category.color === 'purple'
-                                  ? 'bg-purple-500'
-                                  : category.color === 'gray'
-                                  ? 'bg-gray-500'
-                                  : category.color === 'yellow'
-                                  ? 'bg-yellow-300'
-                                  : category.color === 'brown'
-                                  ? 'bg-yellow-800'
-                                  : category.color === 'blue'
-                                  ? 'bg-blue-500'
-                                  : category.color === 'green'
-                                  ? 'bg-green-500'
-                                  : category.color === 'red'
-                                  ? 'bg-red-600'
-                                  : category.color === 'pink'
-                                  ? 'bg-pink-400'
-                                  : 'bg-gray-100'
-                              } ${
-                                index !== 0 && 'ml-1.5'
-                              } p-0.5 px-3.5 rounded-md text-xs text-white`}
-                            >
-                              {category.name}
-                            </span>
+                              category={category}
+                              marginLeft={index !== 0 ? true : false}
+                            />
                           ))}
                         </div>
 
