@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Switch } from '../atoms/Switch';
+import { Switch } from '../atoms/Button/darkMode';
 
 type Props = {
   canGoBack?: boolean;
