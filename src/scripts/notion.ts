@@ -51,13 +51,13 @@ export const getChildPageData = async (pageId: string) => {
     page_id: pageId,
   });
 
-  const siteTitle = (postPageResponse.properties.Post as TitlePropertyValue)
-    .title[0].plain_text;
-  const createdAt = (postPageResponse.properties.CreatedAt as DatePropertyValue)
-    .date.start;
-  const categories = ((postPageResponse.properties
-    .Categories as MultiSelectPropertyValue).multi_select as any) as Categories;
-  const thumbnail = postPageResponse.properties.Thumbnail as URLPropertyValue;
+  const properties = postPageResponse.properties;
+
+  const siteTitle = (properties.Post as TitlePropertyValue).title[0].plain_text;
+  const createdAt = (properties.CreatedAt as DatePropertyValue).date.start;
+  const categories = ((properties.Categories as MultiSelectPropertyValue)
+    .multi_select as any) as Categories;
+  const thumbnail = ((properties as any).Thumbnail?.url as string) || '';
 
   return {
     siteTitle,

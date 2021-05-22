@@ -11,15 +11,19 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({
 }) => {
   const postPageId = query.id as string;
 
-  const { siteTitle, createdAt, categories } = await getChildPageData(
-    postPageId,
-  );
+  const {
+    siteTitle,
+    createdAt,
+    categories,
+    thumbnail,
+  } = await getChildPageData(postPageId);
 
   return {
     props: {
       siteTitle,
       createdAt,
       categories,
+      thumbnail,
       contents: await getBlocksData(postPageId),
     },
   };
@@ -29,6 +33,7 @@ type Props = {
   siteTitle: string;
   createdAt: string;
   categories: Categories;
+  thumbnail: string;
   contents: Blocks;
 };
 
@@ -36,6 +41,7 @@ const Page: NextPage<Props> = ({
   siteTitle,
   createdAt,
   categories,
+  thumbnail,
   contents,
 }) => {
   return (
@@ -48,17 +54,17 @@ const Page: NextPage<Props> = ({
       <div>
         <Header canGoBack={true} />
 
-        <main className="container mx-auto min-h-screen px-4">
+        <main className="container mx-auto min-h-screen px-4 pt-9">
           <article>
             <h1 className="text-4xl mb-4 font-medium text-gray-900 dark:text-white">
               {siteTitle}
             </h1>
 
             <div className="flex max-w-full pt-3">
-              <span className="ml-auto mr-9">{createdAt}</span>
+              <span className="ml-auto">{createdAt}</span>
             </div>
 
-            <div className="flex justify-end pt-2 mr-9">
+            <div className="flex justify-end pt-2">
               {categories.map((category, index) => (
                 <Category
                   key={category.id}
@@ -67,6 +73,15 @@ const Page: NextPage<Props> = ({
                 />
               ))}
             </div>
+
+            {thumbnail !== '' && (
+              <div className="flex flex-wrap relative w-full h-96 mt-3">
+                <img
+                  src={thumbnail}
+                  className="block absolute h-full w-full object-cover object-center inset-0"
+                />
+              </div>
+            )}
 
             <div className="pt-3">
               {contents.map((item) => {
