@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import { useLoaded } from '../../hooks/useLoaded';
-import { Switch } from '../atoms/button/darkMode';
+import { DarkModeToggle } from '../atoms/button/darkModeToggle';
 import ArrowIcon from '../../icons/arrow_back.svg';
 import ArrowWhiteIcon from '../../icons/arrow_back_white.svg';
 
@@ -26,7 +26,7 @@ export const Header: React.VFC<Props> = ({ canGoBack }) => {
           </Link>
         )}
 
-        <Switch />
+        <DarkModeToggle />
       </div>
     </header>
   );
