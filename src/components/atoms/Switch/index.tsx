@@ -10,7 +10,7 @@ export const Switch: React.VFC<Props> = () => {
     setTheme(theme === 'light' ? 'dark' : 'light');
   };
   return (
-    <button onClick={onClick}>
+    <button onClick={onClick} className="zero">
       {theme === 'light' ? (
         <Image src="/icons/sun.png" alt="light" width={24} height={24} />
       ) : (

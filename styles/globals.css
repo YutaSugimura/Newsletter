@@ -14,3 +14,7 @@ h2 {
 h3 {
   @apply text-3xl;
 }
+
+.zero {
+  font-size: 0;
+}

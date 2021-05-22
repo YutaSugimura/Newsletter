@@ -46,7 +46,7 @@ const Page: NextPage<Props> = ({
       </Head>
 
       <div>
-        <Header />
+        <Header canGoBack={true} />
 
         <main className="container mx-auto min-h-screen px-4">
           <article>
