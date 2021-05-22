@@ -1,5 +1,5 @@
-import Head from 'next/head';
 import type { GetServerSideProps, NextPage } from 'next';
+import Head from 'next/head';
 import type { Blocks, Categories } from '../../src/types/notion';
 import { getBlocksData, getChildPageData } from '../../src/scripts/notion';
 import { Header } from '../../src/components/organisms/header';

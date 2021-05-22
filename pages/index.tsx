@@ -1,11 +1,10 @@
-import Head from 'next/head';
 import type { GetServerSideProps, NextPage } from 'next';
+import Head from 'next/head';
 import Link from 'next/link';
 import type { PostList } from '../src/types/notion';
 import { getDatabaseData, getPageData } from '../src/scripts/notion';
 import { Header } from '../src/components/organisms/header';
 import { Footer } from '../src/components/organisms/footer';
-import { SubscribeForm } from '../src/components/molecules/form/subscribe';
 import { Category } from '../src/components/atoms/category';
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
@@ -36,8 +35,6 @@ const Page: NextPage<Props> = ({ siteTitle, postList }) => {
           <h1 className="text-center text-lg title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900 dark:text-white">
             {siteTitle}
           </h1>
-
-          <SubscribeForm />
 
           <div className="pt-20">
             <h2>Archive</h2>
