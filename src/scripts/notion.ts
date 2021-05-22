@@ -9,7 +9,6 @@ import {
   NumberedListItemBlock,
   ParagraphBlock,
   TitlePropertyValue,
-  URLPropertyValue,
 } from '@notionhq/client/build/src/api-types';
 import { Blocks, Categories } from '../types/notion';
 
