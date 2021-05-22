@@ -1,10 +1,12 @@
 import { Annotations, Color } from '@notionhq/client/build/src/api-types';
 
-export type Categories = {
+export type Category = {
   id: string;
   name: string;
   color: Color;
-}[];
+};
+
+export type Categories = Category[];
 
 export type PostItem = {
   type: 'page';

@@ -55,8 +55,8 @@ export const getChildPageData = async (pageId: string) => {
     .title[0].plain_text;
   const createdAt = (postPageResponse.properties.CreatedAt as DatePropertyValue)
     .date.start;
-  const categories = postPageResponse.properties
-    .Categories as MultiSelectPropertyValue;
+  const categories = ((postPageResponse.properties
+    .Categories as MultiSelectPropertyValue).multi_select as any) as Categories;
   const thumbnail = postPageResponse.properties.Thumbnail as URLPropertyValue;
 
   return {
