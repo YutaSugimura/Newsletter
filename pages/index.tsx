@@ -1,92 +1,87 @@
+import type { GetServerSideProps, GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
-import type { GetServerSideProps } from 'next';
-import styles from '../styles/Home.module.css';
-import { Card } from '../src/components/molecules/Card';
+import Link from 'next/link';
+import type { PostList } from '../src/types/notion';
+import { getDatabaseData, getPageData } from '../src/scripts/notion';
+import { Header } from '../src/components/organisms/header';
+import { Footer } from '../src/components/organisms/footer';
+import { Category } from '../src/components/atoms/category';
 
-type Props = {
-  data: {
-    title: string;
-    text: string;
-  };
-};
+// export const getStaticProps: GetStaticProps<Props> = async () => {
+//   return {
+//     props: {
+//       siteTitle: await getPageData(),
+//       postList: await getDatabaseData(),
+//     },
+//   };
+// };
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
-  const data = await fetch('https://myapi.dev/ssr').then((res) => res.json());
-
   return {
     props: {
-      data,
+      siteTitle: await getPageData(),
+      postList: await getDatabaseData(),
     },
   };
 };
 
-const Page: React.VFC<Props> = ({ data }) => {
+type Props = {
+  siteTitle: string;
+  postList: PostList;
+};
+
+const Page: NextPage<Props> = ({ siteTitle, postList }) => {
   return (
-    <div className={styles.container}>
+    <>
       <Head>
-        <title>Create Next App</title>
+        <title>{siteTitle}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="2xl:container">
-        <h1 className="text-5xl text-blue-500 font-bold text-center">
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+      <div>
+        <Header />
+        <main className="container mx-auto min-h-screen px-4">
+          <h1 className="text-center text-lg title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900 dark:text-white">
+            {siteTitle}
+          </h1>
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
+          <div className="pt-20">
+            <h2>Archive</h2>
+            <ul className="divide-y divide-gray-300">
+              {postList.map((item) => (
+                <li key={item.id} className="divide-y divide-yellow-500">
+                  <Link href={`/archive/${item.id}`}>
+                    <div className="hover:bg-gray-100 px-3 py-1.5 items-center">
+                      <p className="text-gray-700 dark:text-white text-2xl">
+                        {item.title}
+                      </p>
 
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
+                      <div className="flex flex-row justify-between items-center">
+                        <div>
+                          {item.categories.map((category, index) => (
+                            <Category
+                              key={category.id}
+                              category={category}
+                              marginLeft={index !== 0 ? true : false}
+                            />
+                          ))}
+                        </div>
 
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
+                        <span className="text-gray-400 text-sm">
+                          {item.createdAt}
+                        </span>
+                      </div>
+                    </div>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </main>
 
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-
-        <div>
-          <p>title: {data.title}</p>
-          <p>text: {data.text}</p>
-        </div>
-
-        <Card />
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
+        <Footer />
+      </div>
+    </>
   );
 };
 
