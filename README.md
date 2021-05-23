@@ -1,34 +1,63 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+#　 Notion Blog(CMS)
+A simple blog application created using Notion and Notion SDK.
 
-## Getting Started
+## Usage
 
-First, run the development server:
+1. Duplicate Notion template
+   Duplicate it and bring it to your Notion environment.
+   Click the Duplicate button in the upper right corner to duplicate.
 
-```bash
-npm run dev
-# or
-yarn dev
+   - [CMS Template](https://www.notion.so/sugimura/Notion-CMS-Template-9229b7d0e883429fa1890db16b475cd4)
+
+2. Get APIKey
+
+- [developers.notion.com](https://developers.notion.com/)
+
+3. Create a development environment
+
+```zsh
+git clone https://github.com/YutaSugimura/notion-blog.git
+cd notion-blog
+cp .env.example .env # Copy the .env file
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Set it up for your environment.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+```txt
+NOTION_TOKEN="Internal Integration Token" // https://developers.notion.com/
+PARENT_PAGE_ID=9229b7d0e883429fa1890db16b475cd4 // Duplicate https://www.notion.so/sugimura/Notion-CMS-Template-9229b7d0e883429fa1890db16b475cd4
+DATABASE_ID=2cd870c27cbf4524b2d478068a0c85de // https://www.notion.so/sugimura/2cd870c27cbf4524b2d478068a0c85de?v=991ec498ab6c4675b08a9822b64b0c40
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+4. Execution
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+```zsh
+  yarn install
+  yarn dev
+```
 
-## Learn More
+## Specifications
 
-To learn more about Next.js, take a look at the following resources:
+### Supported blocks
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- text
+- Heading 1
+- Heading 2
+- Heading 3
+- Bulleted List
+- Numbered List
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Unsupported blocks
 
-## Deploy on Vercel
+- Todo List
+- Toggle List
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+(Not supported by the SDK)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Quote
+- Image
+- Code
+- Web Bookmark
+- Audio
+- Video
+- File
