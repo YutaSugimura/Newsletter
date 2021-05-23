@@ -1,4 +1,4 @@
-import type { GetServerSideProps, NextPage } from 'next';
+import type { GetServerSideProps, GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
 import type { PostList } from '../src/types/notion';
@@ -6,6 +6,15 @@ import { getDatabaseData, getPageData } from '../src/scripts/notion';
 import { Header } from '../src/components/organisms/header';
 import { Footer } from '../src/components/organisms/footer';
 import { Category } from '../src/components/atoms/category';
+
+// export const getStaticProps: GetStaticProps<Props> = async () => {
+//   return {
+//     props: {
+//       siteTitle: await getPageData(),
+//       postList: await getDatabaseData(),
+//     },
+//   };
+// };
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
   return {
