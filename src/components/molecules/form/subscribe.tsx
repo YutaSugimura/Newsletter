@@ -1,5 +1,5 @@
 import { InputEmail } from '../../atoms/input/email';
-import { SubmitButton } from '../../atoms/button/submit';
+import { SubmitButton } from '../../atoms/button/submitButton';
 
 type Props = {};
 
