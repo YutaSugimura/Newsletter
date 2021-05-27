@@ -1,6 +1,8 @@
 #　 Notion Blog(CMS)
 A simple blog application created using Notion and Notion SDK.
 
+- [notion-sdk-js](https://github.com/makenotion/notion-sdk-js)
+
 ## Usage
 
 1. Duplicate Notion template
