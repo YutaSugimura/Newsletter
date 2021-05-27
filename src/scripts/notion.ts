@@ -1,13 +1,7 @@
 import { Client } from '@notionhq/client';
 import {
-  BulletedListItemBlock,
   DatePropertyValue,
-  HeadingOneBlock,
-  HeadingThreeBlock,
-  HeadingTwoBlock,
   MultiSelectPropertyValue,
-  NumberedListItemBlock,
-  ParagraphBlock,
   TitlePropertyValue,
 } from '@notionhq/client/build/src/api-types';
 import { Blocks, Categories } from '../types/notion';
@@ -92,53 +86,35 @@ export const getBlocksData = async (pageId: string) => {
         return {
           id: block.id,
           type: block.type,
-          text:
-            ((block as any).heading_1 as HeadingOneBlock).text[0]?.plain_text ||
-            '',
-          href:
-            ((block as any).heading_1 as HeadingOneBlock).text[0]?.href || '',
-          annotations:
-            ((block as any).heading_1 as HeadingOneBlock).text[0]
-              ?.annotations || undefined,
+          text: block.heading_1.text[0]?.plain_text || '',
+          href: block.heading_1.text[0]?.href || '',
+          annotations: block.heading_1.text[0]?.annotations || undefined,
         };
       case 'heading_2':
         return {
           id: block.id,
           type: block.type,
-          text:
-            ((block as any).heading_2 as HeadingTwoBlock).text[0]?.plain_text ||
-            '',
-          href:
-            ((block as any).heading_2 as HeadingTwoBlock).text[0]?.href || '',
-          annotations:
-            ((block as any).heading_2 as HeadingTwoBlock).text[0]
-              ?.annotations || undefined,
+          text: block.heading_2.text[0]?.plain_text || '',
+          href: block.heading_2.text[0]?.href || '',
+          annotations: block.heading_2.text[0]?.annotations || undefined,
         };
       case 'heading_3':
         return {
           id: block.id,
           type: block.type,
-          text:
-            ((block as any).heading_3 as HeadingThreeBlock).text[0]
-              ?.plain_text || '',
-          href:
-            ((block as any).heading_3 as HeadingThreeBlock).text[0]?.href || '',
-          annotations:
-            ((block as any).heading_3 as HeadingThreeBlock).text[0]
-              ?.annotations || undefined,
+          text: block.heading_3.text[0]?.plain_text || '',
+          href: block.heading_3.text[0]?.href || '',
+          annotations: block.heading_3.text[0]?.annotations || undefined,
         };
       case 'paragraph':
         return {
           id: block.id,
           type: block.type,
-          text:
-            ((block as any).paragraph as ParagraphBlock).text[0]?.plain_text ||
-            '',
-          href:
-            ((block as any).paragraph as ParagraphBlock).text[0]?.href || '',
+          text: block.paragraph.text[0]?.plain_text || '',
+          href: block.paragraph.text[0]?.href || '',
         };
       case 'bulleted_list_item':
-        const item = (block as any).bulleted_list_item as BulletedListItemBlock;
+        const item = block.bulleted_list_item;
         return (() => ({
           id: block.id,
           type: block.type,
@@ -149,12 +125,8 @@ export const getBlocksData = async (pageId: string) => {
         return (() => ({
           id: block.id,
           type: block.type,
-          text:
-            ((block as any).numbered_list_item as NumberedListItemBlock).text[0]
-              ?.plain_text || '',
-          href:
-            ((block as any).numbered_list_item as NumberedListItemBlock).text[0]
-              ?.href || '',
+          text: block.numbered_list_item.text[0]?.plain_text || '',
+          href: block.numbered_list_item.text[0]?.href || '',
         }))();
       default:
         return {
