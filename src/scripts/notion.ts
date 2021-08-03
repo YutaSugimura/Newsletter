@@ -48,8 +48,8 @@ export const getChildPageData = async (pageId: string) => {
 
   const siteTitle = (properties.Post as TitlePropertyValue).title[0].plain_text;
   const createdAt = (properties.CreatedAt as DatePropertyValue).date.start;
-  const categories = ((properties.Categories as MultiSelectPropertyValue)
-    .multi_select as any) as Categories;
+  const categories = (properties.Categories as MultiSelectPropertyValue)
+    .multi_select as any as Categories;
   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   const thumbnail = ((properties as any).Thumbnail?.url as string) || '';
 
@@ -69,8 +69,8 @@ export const getDatabaseData = async () => {
     id: item.id,
     title: (item.properties.Post as TitlePropertyValue).title[0].plain_text,
     createdAt: (item.properties.CreatedAt as DatePropertyValue).date.start,
-    categories: ((item.properties.Categories as MultiSelectPropertyValue)
-      .multi_select as any) as Categories,
+    categories: (item.properties.Categories as MultiSelectPropertyValue)
+      .multi_select as any as Categories,
   }));
 
   return databaseData;
