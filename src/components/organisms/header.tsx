@@ -21,7 +21,7 @@ export const Header: React.VFC<Props> = ({ canGoBack }) => {
         }`}
       >
         {loaded && canGoBack && (
-          <Link href={`/`}>
+          <Link href={'/'}>
             <div>{theme === 'light' ? <ArrowIcon /> : <ArrowWhiteIcon />}</div>
           </Link>
         )}

@@ -6,17 +6,10 @@ import { Header } from '../../src/components/organisms/header';
 import { Footer } from '../../src/components/organisms/footer';
 import { Category } from '../../src/components/atoms/category';
 
-export const getServerSideProps: GetServerSideProps<Props> = async ({
-  query,
-}) => {
+export const getServerSideProps: GetServerSideProps<Props> = async ({ query }) => {
   const postPageId = query.id as string;
 
-  const {
-    siteTitle,
-    createdAt,
-    categories,
-    thumbnail,
-  } = await getChildPageData(postPageId);
+  const { siteTitle, createdAt, categories, thumbnail } = await getChildPageData(postPageId);
 
   return {
     props: {
@@ -37,13 +30,7 @@ type Props = {
   contents: Blocks;
 };
 
-const Page: NextPage<Props> = ({
-  siteTitle,
-  createdAt,
-  categories,
-  thumbnail,
-  contents,
-}) => {
+const Page: NextPage<Props> = ({ siteTitle, createdAt, categories, thumbnail, contents }) => {
   return (
     <>
       <Head>
@@ -56,9 +43,7 @@ const Page: NextPage<Props> = ({
 
         <main className="container mx-auto min-h-screen px-4 pt-9">
           <article>
-            <h1 className="text-4xl mb-4 font-medium text-gray-900 dark:text-white">
-              {siteTitle}
-            </h1>
+            <h1 className="text-4xl mb-4 font-medium text-gray-900 dark:text-white">{siteTitle}</h1>
 
             <div className="flex max-w-full pt-3">
               <span className="ml-auto">{createdAt}</span>
@@ -114,6 +99,7 @@ const Page: NextPage<Props> = ({
                         className="hover:text-gray-300 text-base underline tracking-tight"
                         href={item.href}
                         target="_blank"
+                        rel="noreferrer"
                       >
                         {item.text}
                       </a>

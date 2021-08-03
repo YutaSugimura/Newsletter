@@ -52,9 +52,7 @@ const Page: NextPage<Props> = ({ siteTitle, postList }) => {
                 <li key={item.id} className="divide-y divide-yellow-500">
                   <Link href={`/archive/${item.id}`}>
                     <div className="hover:bg-gray-100 px-3 py-1.5 items-center">
-                      <p className="text-gray-700 dark:text-white text-2xl">
-                        {item.title}
-                      </p>
+                      <p className="text-gray-700 dark:text-white text-2xl">{item.title}</p>
 
                       <div className="flex flex-row justify-between items-center">
                         <div>
@@ -67,9 +65,7 @@ const Page: NextPage<Props> = ({ siteTitle, postList }) => {
                           ))}
                         </div>
 
-                        <span className="text-gray-400 text-sm">
-                          {item.createdAt}
-                        </span>
+                        <span className="text-gray-400 text-sm">{item.createdAt}</span>
                       </div>
                     </div>
                   </Link>

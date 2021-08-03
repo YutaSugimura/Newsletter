@@ -8,9 +8,7 @@ export default {
   argTypes: { onClick: { action: 'clicked' } },
 };
 
-const Template: Story<ComponentProps<typeof Button>> = (args) => (
-  <Button {...args} />
-);
+const Template: Story<ComponentProps<typeof Button>> = (args) => <Button {...args} />;
 
 export const ButtonStory = Template.bind({});
 Template.storyName = 'atoms/Button';

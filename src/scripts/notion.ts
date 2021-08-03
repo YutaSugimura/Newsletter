@@ -50,6 +50,7 @@ export const getChildPageData = async (pageId: string) => {
   const createdAt = (properties.CreatedAt as DatePropertyValue).date.start;
   const categories = ((properties.Categories as MultiSelectPropertyValue)
     .multi_select as any) as Categories;
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   const thumbnail = ((properties as any).Thumbnail?.url as string) || '';
 
   return {
@@ -114,6 +115,7 @@ export const getBlocksData = async (pageId: string) => {
           href: block.paragraph.text[0]?.href || '',
         };
       case 'bulleted_list_item':
+        // eslint-disable-next-line no-case-declarations
         const item = block.bulleted_list_item;
         return (() => ({
           id: block.id,

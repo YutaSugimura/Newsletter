@@ -29,7 +29,7 @@ export const Category: React.VFC<Props> = ({ category, marginLeft }) => {
           : category.color === 'pink'
           ? 'bg-pink-400'
           : 'bg-gray-100'
-      } ${marginLeft && 'ml-1.5'} p-0.5 px-3.5 rounded-md text-xs text-white`}
+      } ${marginLeft ? 'ml-1.5' : ''} p-0.5 px-3.5 rounded-md text-xs text-white`}
     >
       {category.name}
     </span>
