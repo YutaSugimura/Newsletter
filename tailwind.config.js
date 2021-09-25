@@ -1,7 +1,9 @@
 module.exports = {
   purge: ['./src/components/**/*.{js,ts,jsx,tsx}', './pages/**/*.{js,ts,jsx,tsx}'],
+  mode: 'jit',
   darkMode: 'class', // or 'media' or 'class'
   theme: {
+    extend: {},
     screens: {
       xs: '375px',
       sm: '480px',
@@ -9,7 +11,6 @@ module.exports = {
       lg: '976px',
       xl: '1280px',
     },
-    extend: {},
     container: {
       display: 'flex',
       flexDirection: 'column',
@@ -17,7 +18,7 @@ module.exports = {
       alignItems: 'center',
     },
     fontFamily: {
-      sans: ['Roboto', 'Noto Sans JP'],
+      sans: ['Roboto', 'Noto Sans JP', 'sans-serif'],
     },
   },
   variants: {

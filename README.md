@@ -63,3 +63,7 @@ DATABASE_ID=2cd870c27cbf4524b2d478068a0c85de // https://www.notion.so/sugimura/2
 - Audio
 - Video
 - File
+
+// Tailwind
+https://tailwindcss.com/docs/background-color#hover
+https://tailblocks.cc/

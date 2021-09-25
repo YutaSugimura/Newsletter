@@ -1,4 +1,13 @@
-node_modules
-.next
+.github
+.husky
 public
-next-env.d.ts
+.babelrc
+.eslintrc.js
+jest.config.js
+next.config.js
+postcss.config.js
+tailwind.config.js
+
+.next
+node_modules
+storybook-static

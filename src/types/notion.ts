@@ -1,18 +1,8 @@
-import { Annotations, Color } from '@notionhq/client/build/src/api-types';
-
-export type Category = {
-  id: string;
-  name: string;
-  color: Color;
-};
-
-export type Categories = Category[];
-
 export type PostItem = {
   type: 'page';
   id: string;
-  title: string;
-  createdAt: string;
+  publishedAt: string;
+  title: TitleProperty;
   categories: Categories;
 };
 
@@ -25,6 +15,7 @@ type Block =
   | Paragraph
   | BulletedListItem
   | NumberedListItem
+  | Image
   | Unsupported;
 
 export type Blocks = Block[];
@@ -73,7 +64,77 @@ interface NumberedListItem {
   href: string;
 }
 
+interface Image {
+  id: string;
+  type: 'image';
+  image: {
+    type: string;
+    caption: [];
+    url: string;
+  };
+}
+
 interface Unsupported {
   id: string;
   type: 'unsupported';
 }
+
+export type TitleProperty = {
+  type: 'text' | 'mention' | 'equation';
+  plain_text: PlainText;
+  annotations: Annotations;
+  href: Href;
+} | null;
+
+export type Category = {
+  id: string;
+  name: string;
+  color: Colors;
+};
+
+export type Categories = Category[] | null;
+
+//
+type PlainText = string;
+type Href = null | string;
+type Annotations = {
+  bold: boolean;
+  italic: boolean;
+  strikethrough: boolean;
+  underline: boolean;
+  code: boolean;
+  color: TextColors;
+};
+
+type Colors =
+  | 'default'
+  | 'gray'
+  | 'brown'
+  | 'orange'
+  | 'yellow'
+  | 'green'
+  | 'blue'
+  | 'purple'
+  | 'pink'
+  | 'red';
+
+type TextColors =
+  | 'default'
+  | 'gray'
+  | 'brown'
+  | 'orange'
+  | 'yellow'
+  | 'green'
+  | 'blue'
+  | 'purple'
+  | 'pink'
+  | 'red'
+  | 'gray_background'
+  | 'brown_background'
+  | 'orange_background'
+  | 'yellow_background'
+  | 'green_background'
+  | 'blue_background'
+  | 'purple_background'
+  | 'pink_background'
+  | 'red_background';

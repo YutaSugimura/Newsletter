@@ -1,19 +1,19 @@
 import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
-import type { Blocks, Categories } from '../../src/types/notion';
-import { getBlocksData, getChildPageData } from '../../src/scripts/notion';
-import { Header } from '../../src/components/organisms/header';
-import { Footer } from '../../src/components/organisms/footer';
-import { Category } from '../../src/components/atoms/category';
+import type { Blocks, Categories, TitleProperty } from '../../types/notion';
+import { getBlocksData, getChildPageData } from '../../scripts/notion';
+import { Header } from '../../components/organisms/header';
+import { Footer } from '../../components/organisms/footer';
+import { Category } from '../../components/atoms/category';
 
 export const getServerSideProps: GetServerSideProps<Props> = async ({ query }) => {
   const postPageId = query.id as string;
 
-  const { siteTitle, createdAt, categories, thumbnail } = await getChildPageData(postPageId);
+  const { title, createdAt, categories, thumbnail } = await getChildPageData(postPageId);
 
   return {
     props: {
-      siteTitle,
+      title,
       createdAt,
       categories,
       thumbnail,
@@ -23,14 +23,16 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({ query }) =
 };
 
 type Props = {
-  siteTitle: string;
+  title: TitleProperty;
   createdAt: string;
   categories: Categories;
   thumbnail: string;
   contents: Blocks;
 };
 
-const Page: NextPage<Props> = ({ siteTitle, createdAt, categories, thumbnail, contents }) => {
+const Page: NextPage<Props> = ({ title, createdAt, categories, thumbnail, contents }) => {
+  const siteTitle = title !== null ? title.plain_text : '';
+
   return (
     <>
       <Head>
@@ -50,13 +52,14 @@ const Page: NextPage<Props> = ({ siteTitle, createdAt, categories, thumbnail, co
             </div>
 
             <div className="flex justify-end pt-2">
-              {categories.map((category, index) => (
-                <Category
-                  key={category.id}
-                  category={category}
-                  marginLeft={index !== 0 ? true : false}
-                />
-              ))}
+              {categories !== null &&
+                categories.map((category, index) => (
+                  <Category
+                    key={category.id}
+                    category={category}
+                    marginLeft={index !== 0 ? true : false}
+                  />
+                ))}
             </div>
 
             {thumbnail !== '' && (
@@ -114,6 +117,8 @@ const Page: NextPage<Props> = ({ siteTitle, createdAt, categories, thumbnail, co
                   return <li key={item.id}>{item.text}</li>;
                 } else if (item.type === 'numbered_list_item') {
                   return <ol key={item.id}>{item.text}</ol>;
+                } else if (item.type === 'image') {
+                  return <img src={item.image.url} width={200} height={200} alt="image" />;
                 } else if (item.type === 'unsupported') {
                   return <div key={item.id} style={{ height: 20 }} />;
                 }

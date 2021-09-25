@@ -1,8 +1,8 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { Footer } from '../src/components/organisms/footer';
-import { Header } from '../src/components/organisms/header';
-import { SubscribeForm } from '../src/components/molecules/form/subscribe';
+import { Footer } from '../components/organisms/footer';
+import { Header } from '../components/organisms/header';
+import { SubscribeForm } from '../components/molecules/form/subscribe';
 
 const Page: NextPage = () => {
   return (

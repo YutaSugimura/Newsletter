@@ -1,10 +1,5 @@
 import { Client } from '@notionhq/client';
-import {
-  DatePropertyValue,
-  MultiSelectPropertyValue,
-  TitlePropertyValue,
-} from '@notionhq/client/build/src/api-types';
-import { Blocks, Categories } from '../types/notion';
+import { Blocks, PostItem, TitleProperty } from '../types/notion';
 
 const notion = new Client({
   auth: process.env.NOTION_TOKEN,
@@ -34,44 +29,54 @@ const postsResponse = async () => {
   });
 };
 
-export const getPageData = async () => {
+export const getPageData = async (): Promise<TitleProperty> => {
   const { properties } = await pageResponse();
-  return (properties.title as TitlePropertyValue).title[0].plain_text;
+  return properties.title.type === 'title' ? properties.title.title[0] : null;
 };
 
 export const getChildPageData = async (pageId: string) => {
-  const postPageResponse = await notion.pages.retrieve({
+  const post = await notion.pages.retrieve({
     page_id: pageId,
   });
 
-  const properties = postPageResponse.properties;
+  const { created_time, last_edited_time, icon, properties, url, id } = post;
 
-  const siteTitle = (properties.Post as TitlePropertyValue).title[0].plain_text;
-  const createdAt = (properties.CreatedAt as DatePropertyValue).date.start;
-  const categories = (properties.Categories as MultiSelectPropertyValue)
-    .multi_select as any as Categories;
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-  const thumbnail = ((properties as any).Thumbnail?.url as string) || '';
+  const createdAt = properties.CreatedAt.type === 'date' ? properties.CreatedAt.date.start : '';
+  const title: TitleProperty = properties.Post.type === 'title' ? properties.Post.title[0] : null;
+  const thumbnail = properties.Thumbnail.type === 'url' ? properties.Thumbnail.url : '';
+  const categories =
+    properties.Categories.type === 'multi_select' ? properties.Categories.multi_select : null;
 
   return {
-    siteTitle,
-    createdAt,
-    categories,
+    id,
+    url,
+    icon,
+    title: title,
+    createdAt: created_time,
+    updatedAt: last_edited_time,
+    publishedAt: createdAt,
     thumbnail,
+    categories,
   };
 };
 
 export const getDatabaseData = async () => {
   const { results } = await postsResponse();
 
-  const databaseData = results.map((item) => ({
-    type: item.object,
-    id: item.id,
-    title: (item.properties.Post as TitlePropertyValue).title[0].plain_text,
-    createdAt: (item.properties.CreatedAt as DatePropertyValue).date.start,
-    categories: (item.properties.Categories as MultiSelectPropertyValue)
-      .multi_select as any as Categories,
-  }));
+  const databaseData = results.map(
+    (item) =>
+      ({
+        type: item.object,
+        id: item.id,
+        title: item.properties.Post.type === 'title' ? item.properties.Post.title[0] : null,
+        publishedAt:
+          item.properties.CreatedAt.type === 'date' ? item.properties.CreatedAt.date.start : '',
+        categories:
+          item.properties.Categories.type === 'multi_select'
+            ? item.properties.Categories.multi_select
+            : null,
+      } as PostItem),
+  );
 
   return databaseData;
 };
@@ -130,6 +135,28 @@ export const getBlocksData = async (pageId: string) => {
           text: block.numbered_list_item.text[0]?.plain_text || '',
           href: block.numbered_list_item.text[0]?.href || '',
         }))();
+      case 'image':
+        if (block.image.type === 'file') {
+          return {
+            id: block.id,
+            type: block.type,
+            image: {
+              type: block.image.type,
+              caption: block.image.caption,
+              url: block.image.file.url,
+            },
+          };
+        }
+
+        return {
+          id: block.id,
+          type: block.type,
+          image: {
+            type: block.image.type,
+            caption: block.image.caption,
+            url: block.image.external.url,
+          },
+        };
       default:
         return {
           id: block.id,
@@ -139,4 +166,9 @@ export const getBlocksData = async (pageId: string) => {
   });
 
   return blocks as Blocks;
+};
+
+export const userList = async () => {
+  const listUsersResponse = await notion.users.list({});
+  return listUsersResponse.results;
 };
