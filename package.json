@@ -18,14 +18,14 @@
   },
   "dependencies": {
     "@notionhq/client": "^0.4.0",
-    "autoprefixer": "^10.3.5",
+    "autoprefixer": "^10.3.6",
     "next": "11.1.2",
     "next-themes": "^0.0.15",
-    "postcss": "^8.3.7",
+    "postcss": "^8.3.8",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "swr": "^1.0.1",
-    "tailwindcss": "^2.2.15"
+    "tailwindcss": "^2.2.16"
   },
   "devDependencies": {
     "@babel/core": "^7.12.17",
