@@ -2,8 +2,8 @@ import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import type { Blocks, Categories, TitleProperty } from '../../types/notion';
 import { getBlocksData, getChildPageData } from '../../scripts/notion';
-import { Header } from '../../components/organisms/header';
-import { Footer } from '../../components/organisms/footer';
+import { Header } from '../../components/header';
+import { Footer } from '../../components/footer';
 import { Category } from '../../components/atoms/category';
 
 export const getServerSideProps: GetServerSideProps<Props> = async ({ query }) => {

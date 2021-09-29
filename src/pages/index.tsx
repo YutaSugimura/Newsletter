@@ -3,8 +3,8 @@ import Head from 'next/head';
 import Link from 'next/link';
 import type { PostList, TitleProperty } from '../types/notion';
 import { getDatabaseData, getPageData } from '../scripts/notion';
-import { Header } from '../components/organisms/header';
-import { Footer } from '../components/organisms/footer';
+import { Header } from '../components/header';
+import { Footer } from '../components/footer';
 import { Category } from '../components/atoms/category';
 
 // export const getStaticProps: GetStaticProps<Props> = async () => {
@@ -37,52 +37,49 @@ const Page: NextPage<Props> = ({ title, archive }) => {
     <>
       <Head>
         <title>{siteTitle}</title>
-        <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div>
-        <Header />
-        <main className="container mx-auto min-h-screen px-4">
-          <h1 className="text-center text-lg title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900 dark:text-white">
-            {siteTitle}
-          </h1>
+      <Header />
 
-          <div className="pt-20">
-            <h2>Archive</h2>
-            <ul className="divide-y divide-gray-300">
-              {archive !== null &&
-                archive.map((item) => (
-                  <li key={item.id} className="divide-y divide-yellow-500">
-                    <Link href={`/archive/${item.id}`}>
-                      <div className="hover:bg-gray-100 px-3 py-1.5 items-center">
-                        <p className="text-gray-700 dark:text-white text-2xl">
-                          {item.title !== null ? item.title.plain_text : ''}
-                        </p>
+      <main className="main-area container mx-auto py-4 px-4">
+        <h1 className="text-black dark:text-white text-2xl md:text-3xl font-bold">{siteTitle}</h1>
 
-                        <div className="flex flex-row justify-between items-center">
-                          <div>
-                            {item.categories !== null &&
-                              item.categories.map((category, index) => (
-                                <Category
-                                  key={category.id}
-                                  category={category}
-                                  marginLeft={index !== 0 ? true : false}
-                                />
-                              ))}
-                          </div>
+        <div className="w-full pt-10 md:pt-20">
+          <h2 className="text-xl md:text-2xl font-bold">Archive</h2>
 
-                          <span className="text-gray-400 text-sm">{item.publishedAt}</span>
+          <ul className="w-full divide-y divide-gray-300">
+            {archive !== null &&
+              archive.map((item) => (
+                <li key={item.id} className="w-full">
+                  <Link href={`/archive/${item.id}`}>
+                    <a className="flex items-center hover:bg-gray-300 px-3 py-1.5">
+                      <p className="text-gray-700 dark:text-white text-2xl">
+                        {item.title !== null ? item.title.plain_text : ''}
+                      </p>
+
+                      <div className="flex flex-row justify-between items-center">
+                        <div>
+                          {item.categories !== null &&
+                            item.categories.map((category, index) => (
+                              <Category
+                                key={category.id}
+                                category={category}
+                                marginLeft={index !== 0 ? true : false}
+                              />
+                            ))}
                         </div>
-                      </div>
-                    </Link>
-                  </li>
-                ))}
-            </ul>
-          </div>
-        </main>
 
-        <Footer />
-      </div>
+                        <span className="text-gray-400 text-sm">{item.publishedAt}</span>
+                      </div>
+                    </a>
+                  </Link>
+                </li>
+              ))}
+          </ul>
+        </div>
+      </main>
+
+      <Footer />
     </>
   );
 };

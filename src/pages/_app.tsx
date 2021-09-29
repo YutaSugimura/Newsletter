@@ -1,5 +1,4 @@
-import type { AppProps } from 'next/app';
-import { ThemeProvider } from 'next-themes';
+import type { AppProps /*, AppContext */ } from 'next/app';
 import 'tailwindcss/tailwind.css';
 import '../styles/globals.css';
 
@@ -8,12 +7,8 @@ import '../styles/globals.css';
 //   require('../../.mocks');
 // }
 
-const App = ({ Component, pageProps }: AppProps) => {
-  return (
-    <ThemeProvider attribute="class">
-      <Component {...pageProps} />
-    </ThemeProvider>
-  );
+const App = ({ Component, pageProps }: AppProps): JSX.Element => {
+  return <Component {...pageProps} />;
 };
 
 export default App;

@@ -2,16 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-h1 {
-  @apply text-6xl;
-}
-h2 {
-  @apply text-4xl;
-}
-h3 {
-  @apply text-3xl;
-}
-
-.zero {
-  font-size: 0;
+.main-area {
+  min-height: calc(100vh - theme('spacing["14"]') - theme('spacing["8"]'));
 }
