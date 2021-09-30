@@ -1,7 +1,7 @@
 export const SunIcon: React.VFC = () => {
   return (
     <svg
-      className="h-8 w-8 fill-current dark:text-white"
+      className="h-5 w-5 fill-current dark:text-white"
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"

@@ -45,20 +45,20 @@ const Page: NextPage<Props> = ({ title, archive }) => {
         <h1 className="text-black dark:text-white text-2xl md:text-3xl font-bold">{siteTitle}</h1>
 
         <div className="w-full pt-10 md:pt-20">
-          <h2 className="text-xl md:text-2xl font-bold">Archive</h2>
+          <h2 className="text-black dark:text-white text-xl md:text-2xl font-bold">Archive</h2>
 
-          <ul className="w-full divide-y divide-gray-300">
+          <ul className="w-full pt-3 divide-y divide-gray-300">
             {archive !== null &&
               archive.map((item) => (
                 <li key={item.id} className="w-full">
                   <Link href={`/archive/${item.id}`}>
-                    <a className="flex items-center hover:bg-gray-300 px-3 py-1.5">
-                      <p className="text-gray-700 dark:text-white text-2xl">
+                    <a className="flex flex-col md:flex-row md:justify-between md:items-center w-full md:h-20 py-1.5 hover:bg-gray-200 dark:hover:bg-gray-700">
+                      <p className="text-gray-700 dark:text-white text-2xl font-bold">
                         {item.title !== null ? item.title.plain_text : ''}
                       </p>
 
-                      <div className="flex flex-row justify-between items-center">
-                        <div>
+                      <div className="flex flex-col md:justify-between items-end h-full w-full md:w-60">
+                        <div className="md:flex md:flex-wrap md:justify-end md:w-60">
                           {item.categories !== null &&
                             item.categories.map((category, index) => (
                               <Category
@@ -69,7 +69,9 @@ const Page: NextPage<Props> = ({ title, archive }) => {
                             ))}
                         </div>
 
-                        <span className="text-gray-400 text-sm">{item.publishedAt}</span>
+                        <span className="text-gray-400 dark:text-white text-sm leading-none pt-2 md:pt-0">
+                          {item.publishedAt}
+                        </span>
                       </div>
                     </a>
                   </Link>

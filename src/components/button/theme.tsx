@@ -36,7 +36,10 @@ export const ThemeButton: React.VFC = () => {
   };
 
   return (
-    <button onClick={toggle} className="hover:opacity-60">
+    <button
+      onClick={toggle}
+      className="p-1 border border-gray-400 dark:border-white rounded-lg hover:opacity-60"
+    >
       {theme === 'dark' ? <SunIcon /> : <MoonIcon />}
     </button>
   );
